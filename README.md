@@ -1,2 +1,2 @@
-# haskell-data-structures
- Different data structures implemented in Haskell
+# Haskell Data Sstructures
+Different data structures implemented in Haskell
