@@ -5,6 +5,7 @@ module DataStructures.Set.LinearSet (
     , size
     , contains
     , insert
+    , join
     , remove
   ) where
 
@@ -32,16 +33,25 @@ module DataStructures.Set.LinearSet (
         | contains s x 	= s
         | otherwise 	= Node x s
 
+    join :: (Eq a) => Set a -> Set a -> Set a
+    join s1 Empty = s1
+    join Empty s2 = s2
+    join s1 s2 = mix s1 s2 Empty
+        where
+            mix Empty Empty saux = saux
+            mix (Node x s1') Empty saux         = mix s1' Empty (insert x saux)
+            mix Empty (Node y s2') saux         = mix Empty s2' (insert y saux)
+            mix (Node x s1') (Node y s2') saux  = mix s1' s2' (insert x $ insert y saux)
+
     remove :: (Eq a) => a -> Set a -> Set a
     remove _ Empty = error "remove on empty set"
     remove x s
-        | contains s x 	= del s x Empty
-        | otherwise 	= s
+        | not(contains s x) = s
+        | otherwise 	    = del x s Empty
         where
-            del (Node y s) x s'
-                | isEmpty s = insert y s'
-                | x /= y 	= del s x (insert y s')
-                | x == y 	= del s x s'
+            del x (Node y s) saux
+                | x /= y 	= del x s (insert y saux)
+                | x == y 	= join s saux
 
     instance (Show a) => Show (Set a) where
         show s = "Set(" ++ intercalate "," (setToList s) ++ ")"
