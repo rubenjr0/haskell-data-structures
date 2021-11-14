@@ -1,7 +1,8 @@
-import DataStructures.Stack.LinearStack
+import qualified DataStructures.Stack.LinearStack as LStack
+import qualified DataStructures.Set.LinearSet as LSet
 
-s1 :: Stack Int
-s1 = push 3 empty
+linStack :: LStack.Stack Int
+linStack = LStack.push 2 $ LStack.push 3 LStack.empty
 
-s2 :: Stack Int
-s2 = push 2 s1
+linSet :: LSet.Set Int
+linSet = LSet.insert 8 $ LSet.insert 4 $ LSet.insert 2 $ LSet.insert 3 LSet.empty
