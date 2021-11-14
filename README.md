@@ -19,7 +19,7 @@ An stack is a LIFO (Last In First Out) linear data structure.
 | `push`    | Pushes an element onto the stack            | `O(1)`          |
 | `pop`     | Pops the element on top of the stack        | `O(1)`          |
 
-### Usage
+### Example usage
 ```hs
 s :: Stack Integer
 s = push 3 (push 2 (push 1 empty))
@@ -35,23 +35,38 @@ pop s           -- LinearStack(3,2,1)
 ## Set
 A set contains elements without repetition. For this purpose the elements must be comparable.
 
-### Supported operations
+#### Supported operations
 | Operation  | Description                                     | Time complexity |
 | ---------- | ----------------------------------------------- | --------------- |
 | `isEmpty`  | Checks whether if the set is empty or not       | `O(1)`          |
 | `size`     | Returns the number of elements in the set       | `O(n)`          |
 | `contains` | Chekcs if the set contains a certain element    | `O(n)`          |
-| `insert`   | Inserts an element in the set                   | `O(1)`          |
+| `insert`   | Inserts an element in the set                   | `O(n)`          |
+| `join`     | Joins two sets                                  | `O(n^2)`        |
 | `remove`   | Removes an element from the set if it's present | `O(n)`          |
 
-### Usage
-```hs
-s :: Set Integer
-s = insert 3 $ push 2 $ push 1 empty
+### Implementations
 
-size s          -- 3
-isEmpty (pop s) -- False
-contains s 2    -- True
-insert 4 s      -- LinearSet(4,3,2,1)
-remove 3 s      -- LinearStack(1,2,4); The set is reversed
+#### Linear set
+The elements aren't stored in any particular order, making the `contains` operation `O(n)`. Since the `insert` operation depends on the `contains` operation it is also `O(n)`.
+
+#### Sorted set
+The elements are stored in increasing order, making the `contains` operation faster in some cases, but it will still be `O(n)`.
+
+### Example usage with SortedSet
+```hs
+s1 :: Set Integer
+s1 = push 1 $ push 2 empty -- SortedSet(1,2)
+
+s2 :: Set Integer
+s2 = insert 4 $ push 3 empty -- SortedSet(3,4)
+
+s3 = join s1 s2 -- SortedSet(1,2,3,4)
+
+size s3         -- 4
+isEmpty s3      -- False
+contains s3 4   -- True
+insert 5 s3     -- SortedSet(1,2,3,4,5)
+remove 3 s3     -- SortedSet(1,2,4,5)
 ```
+> Note: The `remove` operation reverses the set when performed on a LinearSet.
