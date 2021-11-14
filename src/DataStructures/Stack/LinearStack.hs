@@ -36,7 +36,7 @@ module DataStructures.Stack.LinearStack (
     pop (Node x s)  = s
 
     instance (Show a) => Show (Stack a) where
-        show s = "LinearStack(" ++ intercalate ", " (stackToList s) ++ ")"
+        show s = "LinearStack(" ++ intercalate "," (stackToList s) ++ ")"
 
     stackToList :: (Show a) => Stack a -> [String]
     stackToList Empty       = []
