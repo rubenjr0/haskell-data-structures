@@ -40,10 +40,11 @@ A set contains elements without repetition. For this purpose the elements must b
 | ---------- | ----------------------------------------------- | --------------- |
 | `isEmpty`  | Checks whether if the set is empty or not       | `O(1)`          |
 | `size`     | Returns the number of elements in the set       | `O(n)`          |
-| `contains` | Chekcs if the set contains a certain element    | `O(n)`          |
+| `isElem`   | Chekcs if an element is contained in a set      | `O(n)`          |
 | `insert`   | Inserts an element in the set                   | `O(n)`          |
-| `join`     | Joins two sets                                  | `O(n^2)`        |
-| `remove`   | Removes an element from the set if it's present | `O(n^2)`          |
+| `fold`     | Reduces a set by applying a function and a default value | `O(n)`          |
+| `union`    | Returns the union of two sets                   | `O(n^2)`        |
+| `remove`   | Removes an element from the set if it's present | `O(n)`          |
 
 ### Implementations
 
