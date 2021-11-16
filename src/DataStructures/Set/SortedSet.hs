@@ -21,25 +21,21 @@ module DataStructures.Set.SortedSet (
     isEmpty _       = False
 
     size :: Set a -> Integer
-    size Empty = 0
+    size Empty      = 0
     size (Node x s) = 1 + size s
 
     contains :: (Ord a, Eq a) => Set a -> a -> Bool
     contains Empty _ = False
     contains (Node y s) x
-        | x == y = True
-        | x > y = contains s x
-        | x < y = False
+        | x < y     = False
+        | otherwise = x == y || contains s x
 
     insert :: (Ord a, Eq a) => a -> Set a -> Set a
-    insert x s
-        | contains s x  = s
-        | otherwise     = put x s
-        where
-            put x Empty = Node x Empty
-            put x (Node y s')
-                | x < y = Node x (Node y s')
-                | x > y = Node y (put x s')
+    insert x Empty = Node x Empty
+    insert x (Node y s)
+        | x < y  = Node x (Node y s)
+        | x == y = Node y s
+        | otherwise = Node y (insert x s)
 
     join :: (Ord a, Eq a) => Set a -> Set a -> Set a
     join s1 Empty = s1
@@ -52,14 +48,11 @@ module DataStructures.Set.SortedSet (
             mix (Node x s1') (Node y s2') saux  = mix s1' s2' (insert x $ insert y saux)
 
     remove :: (Ord a, Eq a) => a -> Set a -> Set a
-    remove _ Empty = error "remove on empty set"
-    remove x s
-        | not(contains s x) = s
-        | otherwise         = del x s Empty
-        where
-            del x (Node y s) saux
-                | x /= y    = del x s (insert y saux)
-                | x == y    = join s saux
+    remove _ Empty = Empty
+    remove x (Node y s)
+        | x < y     = Node y s
+        | x == y    = s
+        | otherwise = Node y (remove x s)
 
     instance (Show a) => Show (Set a) where
         show s = "Set(" ++ intercalate "," (setToList s) ++ ")"
