@@ -8,6 +8,7 @@ module DataStructures.Set.SortedSet (
     , fold
     , union
     , intersection
+    , difference
     , remove
   ) where
 
@@ -66,6 +67,13 @@ module DataStructures.Set.SortedSet (
     intersection (Node x s1) s2
         | isElem x s2   = Node x (intersection s1 s2)
         | otherwise     = intersection s1 s2
+
+    difference :: (Ord a) => Set a -> Set a -> Set a
+    difference Empty _ = Empty
+    difference s Empty = s
+    difference (Node x s1) s2
+        | isElem x s2 = difference s1 s2
+        | otherwise = Node x (difference s1 s2)
 
     instance (Show a) => Show (Set a) where
         show s = "Set(" ++ intercalate "," (setToList s) ++ ")"
