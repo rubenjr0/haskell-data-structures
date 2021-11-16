@@ -23,7 +23,7 @@ module DataStructures.Set.SortedSet (
 
     size :: Set a -> Integer
     size Empty      = 0
-    size (Node x s) = 1 + size s
+    size (Node _ s) = 1 + size s
 
     isElem :: (Ord a) => a -> Set a -> Bool
     isElem _ Empty = False
@@ -33,9 +33,9 @@ module DataStructures.Set.SortedSet (
 
     insert :: (Ord a) => a -> Set a -> Set a
     insert x Empty = Node x Empty
-    insert x (Node y s)
-        | x < y  = Node x (Node y s)
-        | x == y = Node y s
+    insert x n@(Node y s)
+        | x < y  = Node x n
+        | x == y = n
         | otherwise = Node y (insert x s)
 
     fold :: (a -> b -> b) -> b -> Set a -> b
@@ -51,8 +51,8 @@ module DataStructures.Set.SortedSet (
 
     remove :: (Ord a) => a -> Set a -> Set a
     remove _ Empty = Empty
-    remove x (Node y s)
-        | x < y     = Node y s
+    remove x n@(Node y s)
+        | x < y     = n
         | x == y    = s
         | otherwise = Node y (remove x s)
 
