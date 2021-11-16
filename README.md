@@ -43,7 +43,7 @@ A set contains elements without repetition. For this purpose the elements must b
 | `contains` | Chekcs if the set contains a certain element    | `O(n)`          |
 | `insert`   | Inserts an element in the set                   | `O(n)`          |
 | `join`     | Joins two sets                                  | `O(n^2)`        |
-| `remove`   | Removes an element from the set if it's present | `O(n)`          |
+| `remove`   | Removes an element from the set if it's present | `O(n^2)`          |
 
 ### Implementations
 
