@@ -44,14 +44,16 @@ A set contains elements without repetition. For this purpose the elements must b
 | `insert`   | Inserts an element in the set                   | `O(n)`          |
 | `fold`     | Reduces a set by applying a function and a default value | `O(n * O(f))` |
 | `union`    | Returns the union of two sets (sizes `n` and `m`)        | `O(n+m)`      |
+| `intersection`    | Returns the intersection of two sets (sizes `n` and `m`)        | `O(n+m)`      |
+| `difference`    | Returns the difference of two sets (sizes `n` and `m`)        | `O(n+m)`      |
 | `remove`   | Removes an element from the set if it's present | `O(n)`          |
 
 ### Implementations
 
 #### Linear set
 The elements aren't stored in any particular order, making the `contains` operation `O(n)`. Since the `insert` operation depends on the `contains` operation it is also `O(n)`.
+> Note: The `remove` operation reverses the set when performed on a LinearSet.
+
 
 #### Sorted set
 The elements are stored in increasing order, making the `contains` operation faster in some cases, but it will still be `O(n)`.
-
-> Note: The `remove` operation reverses the set when performed on a LinearSet.
