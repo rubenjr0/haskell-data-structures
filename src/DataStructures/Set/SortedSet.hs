@@ -7,6 +7,7 @@ module DataStructures.Set.SortedSet (
     , insert
     , fold
     , union
+    , intersection
     , remove
   ) where
 
@@ -38,6 +39,13 @@ module DataStructures.Set.SortedSet (
         | x == y = n
         | otherwise = Node y (insert x s)
 
+    remove :: (Ord a) => a -> Set a -> Set a
+    remove _ Empty = Empty
+    remove x n@(Node y s)
+        | x < y     = n
+        | x == y    = s
+        | otherwise = Node y (remove x s)
+
     fold :: (a -> b -> b) -> b -> Set a -> b
     fold f z = fun
         where
@@ -47,14 +55,17 @@ module DataStructures.Set.SortedSet (
     union :: (Ord a) => Set a -> Set a -> Set a
     union s1 Empty = s1
     union Empty s2 = s2
-    union s1 s2 = fold insert s1 s2
+    union n1@(Node x s1) n2@(Node y s2)
+        | x == y    = Node x (union s1 s2)
+        | x < y     = Node x (union s1 n2)
+        | otherwise = Node y (union n1 s2)
 
-    remove :: (Ord a) => a -> Set a -> Set a
-    remove _ Empty = Empty
-    remove x n@(Node y s)
-        | x < y     = n
-        | x == y    = s
-        | otherwise = Node y (remove x s)
+    intersection :: (Ord a) => Set a -> Set a -> Set a
+    intersection _ Empty = Empty
+    intersection Empty _ = Empty
+    intersection (Node x s1) s2
+        | isElem x s2   = Node x (intersection s1 s2)
+        | otherwise     = intersection s1 s2
 
     instance (Show a) => Show (Set a) where
         show s = "Set(" ++ intercalate "," (setToList s) ++ ")"

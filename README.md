@@ -42,8 +42,8 @@ A set contains elements without repetition. For this purpose the elements must b
 | `size`     | Returns the number of elements in the set       | `O(n)`          |
 | `isElem`   | Chekcs if an element is contained in a set      | `O(n)`          |
 | `insert`   | Inserts an element in the set                   | `O(n)`          |
-| `fold`     | Reduces a set by applying a function and a default value | `O(n)`          |
-| `union`    | Returns the union of two sets                   | `O(n^2)`        |
+| `fold`     | Reduces a set by applying a function and a default value | `O(n * O(f))` |
+| `union`    | Returns the union of two sets (sizes `n` and `m`)        | `O(n+m)`      |
 | `remove`   | Removes an element from the set if it's present | `O(n)`          |
 
 ### Implementations
@@ -54,21 +54,4 @@ The elements aren't stored in any particular order, making the `contains` operat
 #### Sorted set
 The elements are stored in increasing order, making the `contains` operation faster in some cases, but it will still be `O(n)`.
 
-### Example usage with SortedSet
-```hs
-s1 :: Set Integer
-s1 = insert 1 $ insert 2 empty -- SortedSet(1,2)
-
-s2 :: Set Integer
-s2 = insert 4 $ insert 3 empty -- SortedSet(3,4)
-
-s3 = union s1 s2 -- SortedSet(1,2,3,4)
-
-size s3         -- 4
-isEmpty s3      -- False
-isElem 4 s3     -- True
-insert 5 s3     -- SortedSet(1,2,3,4,5)
-remove 3 s3     -- SortedSet(1,2,4,5)
-fold (+) 0 s3   -- 0 + 1 + 2 + 3 + 4 = 10
-```
 > Note: The `remove` operation reverses the set when performed on a LinearSet.
