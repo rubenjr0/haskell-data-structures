@@ -3,9 +3,10 @@ module DataStructures.Set.SortedSet (
     , empty
     , isEmpty
     , size
-    , contains
+    , isElem
     , insert
-    , join
+    , fold
+    , union
     , remove
   ) where
 
@@ -24,30 +25,31 @@ module DataStructures.Set.SortedSet (
     size Empty      = 0
     size (Node x s) = 1 + size s
 
-    contains :: (Ord a, Eq a) => Set a -> a -> Bool
-    contains Empty _ = False
-    contains (Node y s) x
+    isElem :: (Ord a) => a -> Set a -> Bool
+    isElem _ Empty = False
+    isElem x (Node y s)
         | x < y     = False
-        | otherwise = x == y || contains s x
+        | otherwise = x == y || isElem x s
 
-    insert :: (Ord a, Eq a) => a -> Set a -> Set a
+    insert :: (Ord a) => a -> Set a -> Set a
     insert x Empty = Node x Empty
     insert x (Node y s)
         | x < y  = Node x (Node y s)
         | x == y = Node y s
         | otherwise = Node y (insert x s)
 
-    join :: (Ord a, Eq a) => Set a -> Set a -> Set a
-    join s1 Empty = s1
-    join Empty s2 = s2
-    join s1 s2 = mix s1 s2 Empty
+    fold :: (a -> b -> b) -> b -> Set a -> b
+    fold f z = fun
         where
-            mix Empty Empty saux                = saux
-            mix (Node x s1') Empty saux         = mix s1' Empty (insert x saux)
-            mix Empty (Node y s2') saux         = mix Empty s2' (insert y saux)
-            mix (Node x s1') (Node y s2') saux  = mix s1' s2' (insert x $ insert y saux)
+            fun Empty = z
+            fun (Node x s) = f x (fun s)
 
-    remove :: (Ord a, Eq a) => a -> Set a -> Set a
+    union :: (Ord a) => Set a -> Set a -> Set a
+    union s1 Empty = s1
+    union Empty s2 = s2
+    union s1 s2 = fold insert s1 s2
+
+    remove :: (Ord a) => a -> Set a -> Set a
     remove _ Empty = Empty
     remove x (Node y s)
         | x < y     = Node y s
