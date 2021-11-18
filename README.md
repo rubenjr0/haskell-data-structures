@@ -32,21 +32,35 @@ pop s           -- LinearStack(3,2,1)
 ```
 ---
 
+## Queue
+A queue is a FIFO (First In First Out) linear data structure.
+
+### Supported operations
+| Operation | Description                                 | Time complexity |
+| --------- | ------------------------------------------- | --------------- |
+| `isEmpty` | Checks whether if the queue is empty or not | `O(1)`          |
+| `size`    | Returns the length of the queue             | `O(n)`          |
+| `first`   | Returns the first element on the queue      | `O(1)`          |
+| `enqueue` | Puts the element at the end of the queue    | `O(n)`          |
+| `dequeue` | Removes the first element of the queue      | `O(1)`          |
+
+---
+
 ## Set
 A set contains elements without repetition. For this purpose the elements must be comparable.
 
 #### Supported operations
-| Operation  | Description                                     | Time complexity |
-| ---------- | ----------------------------------------------- | --------------- |
-| `isEmpty`  | Checks whether if the set is empty or not       | `O(1)`          |
-| `size`     | Returns the number of elements in the set       | `O(n)`          |
-| `isElem`   | Chekcs if an element is contained in a set      | `O(n)`          |
-| `insert`   | Inserts an element in the set                   | `O(n)`          |
-| `fold`     | Reduces a set by applying a function and a default value | `O(n * O(f))` |
-| `union`    | Returns the union of two sets (sizes `n` and `m`)        | `O(n+m)`      |
-| `intersection`    | Returns the intersection of two sets (sizes `n` and `m`)        | `O(n+m)`      |
-| `difference`    | Returns the difference of two sets (sizes `n` and `m`)        | `O(n+m)`      |
-| `remove`   | Removes an element from the set if it's present | `O(n)`          |
+| Operation      | Description                                              | Time complexity |
+| -------------- | -------------------------------------------------------- | --------------- |
+| `isEmpty`      | Checks whether if the set is empty or not                | `O(1)`          |
+| `size`         | Returns the number of elements in the set                | `O(n)`          |
+| `isElem`       | Chekcs if an element is contained in a set               | `O(n)`          |
+| `insert`       | Inserts an element in the set                            | `O(n)`          |
+| `fold`         | Reduces a set by applying a function and a default value | `O(n * O(f))`   |
+| `union`        | Returns the union of two sets (sizes `n` and `m`)        | `O(n+m)`        |
+| `intersection` | Returns the intersection of two sets (sizes `n` and `m`) | `O(n+m)`        |
+| `difference`   | Returns the difference of two sets (sizes `n` and `m`)   | `O(n+m)`        |
+| `remove`       | Removes an element from the set if it's present          | `O(n)`          |
 
 ### Implementations
 
