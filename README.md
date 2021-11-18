@@ -36,13 +36,16 @@ pop s           -- LinearStack(3,2,1)
 A queue is a FIFO (First In First Out) linear data structure.
 
 ### Supported operations
-| Operation | Description                                 | Time complexity |
-| --------- | ------------------------------------------- | --------------- |
-| `isEmpty` | Checks whether if the queue is empty or not | `O(1)`          |
-| `size`    | Returns the length of the queue             | `O(n)`          |
-| `first`   | Returns the first element on the queue      | `O(1)`          |
-| `enqueue` | Puts the element at the end of the queue    | `O(n)`          |
-| `dequeue` | Removes the first element of the queue      | `O(1)`          |
+| Operation | Description                                              | Time complexity |
+| --------- | -------------------------------------------------------- | --------------- |
+| `isEmpty` | Checks whether if the queue is empty or not              | `O(1)`          |
+| `size`    | Returns the length of the queue                          | `O(n)`          |
+| `first`   | Returns the first element on the queue                   | `O(1)`          |
+| `enqueue` | Puts the element at the end of the queue                 | `O(n)`          |
+| `dequeue` | Removes the first element of the queue                   | `O(1)`          |
+| `apply`   | Applies a function to all the elements in the queue      | `O(n * O(f))`   |
+| `fold`    | Reduces the queue by applying a function to its elements | `O(n * O(f))`   |
+| `sieve`   | Filters the elements that don't satisfy a condition      | `O(n * O(f))`   |
 
 ---
 

@@ -7,6 +7,9 @@ module DataStructures.Queue.LinearQueue (
     , first
     , enqueue
     , dequeue
+    , apply
+    , fold
+    , sieve
 ) where
 
     import Data.List(intercalate)
@@ -40,6 +43,20 @@ module DataStructures.Queue.LinearQueue (
     dequeue Empty = error "dequeue on empty queue"
     dequeue (Node x q) = q
 
+    apply :: (a -> b) -> Queue a -> Queue b
+    apply _ Empty = Empty
+    apply f (Node x q) = Node (f x) (apply f q)
+
+    fold :: (a -> b -> b) -> b -> Queue a -> b
+    fold _ z Empty = z
+    fold f z (Node x q) = f x (fold f z q)
+
+    sieve :: (a -> Bool) -> Queue a -> Queue a
+    sieve _ Empty = Empty
+    sieve c (Node x q)
+        | c x = Node x (sieve c q)
+        | otherwise = sieve c q
+
     instance (Show a) => Show (Queue a) where
         show q = "LinearQueue(" ++ intercalate "," (queueToList q) ++ ")" 
 
@@ -48,6 +65,3 @@ module DataStructures.Queue.LinearQueue (
     queueToList (Node x q) = show x : queueToList q
 
     -- TODO: Implement Queue equality
-    -- TODO: Implement map
-    -- TODO: Implement reduce
-    -- TODO: Implement filter
